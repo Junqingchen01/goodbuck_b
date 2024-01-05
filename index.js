@@ -3,6 +3,23 @@ const { query, param, body, validationResult } = require("express-validator");
 const app = express();
 const port = process.env.PORT || 3000;
 
+const swaggerUi = require('swagger-ui-express');
+const swagerJsdoc = require('swagger-jsdoc');
+
+const options = {
+  definition: {
+      openapi: '3.0.0',
+      info: {
+          title: 'Client API',
+          version: '1.0.0',
+      }
+  },
+  apis: ['./routes/*.js']
+}
+
+const specs = swagerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 //import routes
 const dashboard = require('./routes/dashboardRouter');
 const despesas = require('./routes/despesasRouter');
