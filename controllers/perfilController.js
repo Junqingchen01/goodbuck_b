@@ -36,7 +36,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// para testar
+// so para testar, neste funcao nao é de aplicacao
 exports.getAllUsers = async (req, res) => {
     try {
       const users = await User.findAll();
