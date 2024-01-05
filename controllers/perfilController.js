@@ -55,7 +55,7 @@ exports.getAllUsers = async (req, res) => {
   };
 
 
-// vai verificar o tempo de premium, e atualizar o status de accountType
+// get informacao de utilizador
 exports.getUserById = async (req, res) => {
   try {
       const userID = req.params.id;
@@ -75,6 +75,7 @@ exports.getUserById = async (req, res) => {
           },
       });
 
+      // vai verificar o tempo de premium, e atualizar o status de accountType
       const accountType = premium && premium.EndDate >= new Date() ? 'Active' : 'Inactive';
 
       await User.update(
@@ -92,7 +93,6 @@ exports.getUserById = async (req, res) => {
       res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
 
 // register
 exports.register = async (req, res) => {
