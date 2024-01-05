@@ -6,7 +6,7 @@ const { User } = require("../models/user");
 exports.AllAmountByCategory = async (req, res) => {
     try {
       const categoryTotals = await Despesa.sequelize.query(
-        'SELECT Category, SUM(Amount) as TotalAmount FROM Despesas GROUP BY Category',
+        'SELECT Category, SUM(Amount) as TotalAmountByCategory FROM Despesas GROUP BY Category',
         { type: Sequelize.QueryTypes.SELECT }
       );
   
@@ -16,7 +16,7 @@ exports.AllAmountByCategory = async (req, res) => {
       console.error('Error calculating category total amounts:', error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
 
 
 // Função para calcular o total de despesas
@@ -33,13 +33,13 @@ exports.AllAmount = async (req, res) => {
       console.error('Error calculating category total amounts:', error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  };
+};
 
 // Função para calcular o total de despesas por data mes
 exports.AllAmountByMonth = async (req, res) => {
     try {
       const allAmountByMonth = await Despesa.sequelize.query(
-        'SELECT MONTH(Date) as Month, SUM(Amount) as TotalAmount FROM Despesas GROUP BY MONTH(Date)',
+        'SELECT MONTH(Date) as Month, SUM(Amount) as TotalAmountByMonth FROM Despesas GROUP BY MONTH(Date)',
         { type: Sequelize.QueryTypes.SELECT }
       );
   
@@ -49,4 +49,4 @@ exports.AllAmountByMonth = async (req, res) => {
       console.error('Error calculating total amounts for each month:', error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
-  }
+}
