@@ -12,4 +12,5 @@ router.delete('/:id', perfilController.deleteUser);
 
 router.post('/:id/Premiun', perfilController.BuyPremiun);
 router.get('/:id/Premiun', perfilController.getInfoPremiun);
+
 module.exports = router;

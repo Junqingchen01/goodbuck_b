@@ -52,8 +52,7 @@ exports.getAllUsers = async (req, res) => {
       console.error("Error fetching all users:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
-  };
-
+};
 
 // get informacao de utilizador
 exports.getUserById = async (req, res) => {
@@ -75,13 +74,16 @@ exports.getUserById = async (req, res) => {
           },
       });
 
-      // vai verificar o tempo de premium, e atualizar o status de accountType
-      const accountType = premium && premium.EndDate >= new Date() ? 'Active' : 'Inactive';
+      let accountType = 'Inactive';
 
-      await User.update(
-          { AccountType: accountType },
-          { where: { UserID: userID } }
-      );
+      if (premium && premium.EndDate >= new Date()) {
+          accountType = 'Active';
+
+          await User.update(
+              { AccountType: accountType },
+              { where: { UserID: userID } }
+          );
+      }
 
       const updatedUser = await User.findOne({
           where: { UserID: userID },
@@ -120,42 +122,41 @@ exports.register = async (req, res) => {
       console.error("Error during registration:", error);
       res.status(500).json({ message: "Internal Server Error" });
     }
-  };
+};
 
 // update
 exports.updateUser = async (req, res) => {
-    try {
-        const { Name , Email, Password, Avatar, CurrencyUnit } = req.body;
+  try {
+      const { Name, Email, Password, Avatar, CurrencyUnit } = req.body;
 
-        const userID = req.params.id;
+      const userID = req.params.id;
 
-        const user = await User.findOne({
-            where: { UserID: userID },
-        });
+      const user = await User.findOne({
+          where: { UserID: userID },
+      });
 
-        if (!user) {
-            return res.status(404).json({ message: "User not found" });
-        }
+      if (!user) {
+          return res.status(404).json({ message: "User not found" });
+      }
 
-        const hashedPassword = await bcrypt.hash(Password, 10);
+      const updateFields = {};
 
-        await User.update(
-            {
-                Name,
-                Email,
-                Password: hashedPassword,
-                Avatar,
-                CurrencyUnit,
-                
-            },
-            { where: { UserID: userID } }
-        );
+      if (Name !== undefined) updateFields.Name = Name;
+      if (Email !== undefined) updateFields.Email = Email;
+      if (Password !== undefined) {
+          const hashedPassword = await bcrypt.hash(Password, 10);
+          updateFields.Password = hashedPassword;
+      }
+      if (Avatar !== undefined) updateFields.Avatar = Avatar;
+      if (CurrencyUnit !== undefined) updateFields.CurrencyUnit = CurrencyUnit;
 
-        res.status(200).json({ message: "User updated successfully" });
-    } catch (error) {
-        console.error("Error updating user:", error);
-        res.status(500).json({ message: "Internal Server Error" });
-    }
+      await User.update(updateFields, { where: { UserID: userID } });
+
+      res.status(200).json({ message: "User updated successfully" });
+  } catch (error) {
+      console.error("Error updating user:", error);
+      res.status(500).json({ message: "Internal Server Error" });
+  }
 };
 
 exports.deleteUser = async (req, res) => {

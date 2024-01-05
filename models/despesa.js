@@ -19,10 +19,18 @@ Despesa.init(
       },
     },
     Date: DataTypes.DATE,
-    Category: DataTypes.STRING,
+    Category: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['Casa', 'Jogo', 'Carro', 'Comida', 'Saúde', 'Família', 'Trabalho', 'Roupas', 'Outros']],
+      },
+    },
     Description: DataTypes.TEXT,
     PaymentMethod: DataTypes.STRING,
-    
+    Amount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false, 
+    },
   },
   { sequelize, modelName: "Despesa" }
 );

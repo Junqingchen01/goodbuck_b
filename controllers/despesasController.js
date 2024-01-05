@@ -1,6 +1,6 @@
 const { validationResult } = require("express-validator");
 const { User } = require("../models/user");
-const { Despesa } = require("../models/Despesa");
+const { Despesa } = require("../models/despesa");
 const { Sequelize } = require('sequelize');
 
 //get all despesas
@@ -13,7 +13,7 @@ exports.GetUserDespesas = async (req, res) => {
             attributes: ['UserID', 'Name'], // 仅选择需要返回的字段
             include: {
                 model: Despesa,
-                attributes: ['DespesaID', 'Date', 'Category', 'Description', 'PaymentMethod'],
+                attributes: ['DespesaID', 'Date', 'Category', 'Description', 'PaymentMethod', 'Amount'],
             },
         });
 
@@ -31,12 +31,11 @@ exports.GetUserDespesas = async (req, res) => {
     }
 };
 
-
 //create despesa
 exports.createDespesa = async (req, res) => {
     try {
         const userID = req.params.id; 
-        const { Category, Description, PaymentMethod } = req.body;
+        const { Category, Description, PaymentMethod, Amount } = req.body;
 
         const user = await User.findOne({
             where: { UserID: userID },
@@ -54,7 +53,7 @@ exports.createDespesa = async (req, res) => {
             Category,
             Description,
             PaymentMethod,
-
+            Amount
         });
 
         res.status(201).json({
@@ -63,10 +62,9 @@ exports.createDespesa = async (req, res) => {
         });
     } catch (error) {
         console.error("Error creating despesa:", error);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Internal Server Error" ,error});
     }
 };
-
 
 //get despesa by id
 exports.getDespesaById = async (req, res) => {
@@ -95,3 +93,33 @@ exports.getDespesaById = async (req, res) => {
         res.status(500).json({ message: "Internal Server Error" });
     }
 };
+
+//delete despesa by id
+exports.deleteDespesaById = async (req, res) => {
+    try {
+        const userID = req.params.id;  
+        const despesaID = req.params.idDespesa;  
+
+        if (!userID || !despesaID) {
+            return res.status(400).json({ message: "User ID and Despesa ID are required" });
+        }
+
+        const despesa = await Despesa.findOne({
+            where: { UserID: userID, DespesaID: despesaID },
+        });
+
+        if (!despesa) {
+            return res.status(404).json({ message: "Despesa not exist" });
+        }
+
+        await despesa.destroy();
+
+        res.status(200).json({
+            message: "Despesa deleted successfully",
+        });
+    } catch (error) {
+        console.error("Error deleting despesa:", error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
