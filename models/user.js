@@ -15,7 +15,12 @@ User.init(
     Password: DataTypes.STRING,
     Avatar: DataTypes.STRING,
     CurrencyUnit: DataTypes.STRING,
-    AccountType: DataTypes.STRING,
+    AccountType: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['Active', 'InActive']],
+      },
+    },
   },
   { sequelize, modelName: "User" }
 );

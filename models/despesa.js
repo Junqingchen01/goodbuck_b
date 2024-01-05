@@ -1,6 +1,6 @@
 const { Model, DataTypes } = require("sequelize");
 const sequelize = require("../connections/mysql").sequelize;
-const { User } = require("./user"); 
+const { User } = require("./user");
 
 class Despesa extends Model {}
 
@@ -19,15 +19,16 @@ Despesa.init(
       },
     },
     Date: DataTypes.DATE,
-    Amount: DataTypes.DECIMAL(10, 2),
     Category: DataTypes.STRING,
     Description: DataTypes.TEXT,
-    Type: DataTypes.STRING,
     PaymentMethod: DataTypes.STRING,
-    Voucher: DataTypes.STRING,
+    
   },
   { sequelize, modelName: "Despesa" }
 );
+
+User.hasMany(Despesa, { foreignKey: 'UserID' });
+Despesa.belongsTo(User, { foreignKey: 'UserID' });
 
 sequelize.sync({ force: false }).then(() => {
   console.log("Despesa table synced");

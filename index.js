@@ -10,7 +10,6 @@ const dica = require('./routes/dicaRouter');
 const metas = require('./routes/metasRouter');
 const notifications = require('./routes/notificationsRouter');
 const perfil = require('./routes/perfilRouter');
-const premium = require('./routes/premiumRouter');
 const setting = require('./routes/settingRouter');
 
 const mysqlConn = require("./connections/mysql").sequelize;
@@ -40,9 +39,6 @@ app.use('/notifications',notifications);
 //PERFILL OU LOGIN
 app.use('/perfil', perfil);
 app.use('/login', perfil);
-
-//PREMIUM
-app.use('/premium',premium);
 
 //SETTING
 app.use('/setting',setting);
