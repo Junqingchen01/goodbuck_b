@@ -12,13 +12,26 @@ Dica.init(
     },
     Title: DataTypes.STRING,
     Content: DataTypes.TEXT,
-    Type: DataTypes.STRING,
+    Type: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['Finanças', 'Poupança', 'Investimentos']],
+      },
+    },
     Date: DataTypes.DATE,
-    URI: DataTypes.STRING,
     Author: DataTypes.STRING,
-    Category: DataTypes.STRING,
-    Level: DataTypes.STRING,
-    IsPremium: DataTypes.BOOLEAN,
+    Level: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: ['Beginner', 'Novice', 'Expert', 'Master'],
+      },
+    },
+    IsPremium: {
+      type: DataTypes.BOOLEAN,
+      validate: {
+        isIn: [[true, false]],
+      },
+    }
   },
   { sequelize, modelName: "Dica" }
 );
