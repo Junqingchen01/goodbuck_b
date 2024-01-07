@@ -97,10 +97,12 @@ const notificationsController = require('../controllers/notificationsController'
  */
 
 
-router.get('/', notificationsController.getAllNotification);
-router.get('/:id', notificationsController.getNotificationById);
-router.post('/', notificationsController.createNotification);
-router.delete('/', notificationsController.deleteAllNotification);
+router.get('/:id', notificationsController.getAllNotification);
+router.get('/:id/:idnotification', notificationsController.getNotificationById);
+router.post('/:id', notificationsController.createNotification);
+
+router.delete('/:id/', notificationsController.deleteAllNotification);
+router.delete('/:id/:idnotification', notificationsController.deleteNotificationById);
 
 
 module.exports = router;

@@ -19,14 +19,17 @@ Meta_de_poupança.init(
       },
     },
     Name: DataTypes.STRING,
-    Amount: DataTypes.DECIMAL(10, 2),
     StartDate: DataTypes.DATE,
     EndDate: DataTypes.DATE,
-    Frequency: DataTypes.STRING,
     PlannedContribution: DataTypes.DECIMAL(10, 2),
     CurrentContribution: DataTypes.DECIMAL(10, 2),
     Description: DataTypes.TEXT,
-    Priority: DataTypes.INTEGER,
+    Priority: {
+      type: DataTypes.STRING,
+      validate: {
+          isIn: ['Importante', 'Normal'],
+      },
+  },
   },
   { sequelize, modelName: "Meta_de_poupança" }
 );

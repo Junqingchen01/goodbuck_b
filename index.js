@@ -27,7 +27,6 @@ const dica = require('./routes/dicaRouter');
 const metas = require('./routes/metasRouter');
 const notifications = require('./routes/notificationsRouter');
 const perfil = require('./routes/perfilRouter');
-const setting = require('./routes/settingRouter');
 
 const mysqlConn = require("./connections/mysql").sequelize;
 app.use(express.json());
@@ -56,9 +55,6 @@ app.use('/notifications',notifications);
 //PERFILL OU LOGIN
 app.use('/perfil', perfil);
 app.use('/login', perfil);
-
-//SETTING
-app.use('/setting',setting);
 
 
 app.listen(port, () => {

@@ -10,7 +10,7 @@ exports.GetUserDespesas = async (req, res) => {
 
         const userWithDespesas = await User.findOne({
             where: { UserID: userID },
-            attributes: ['UserID', 'Name'], // 仅选择需要返回的字段
+            attributes: ['UserID', 'Name'], 
             include: {
                 model: Despesa,
                 attributes: ['DespesaID', 'Date', 'Category', 'Description', 'PaymentMethod', 'Amount'],
