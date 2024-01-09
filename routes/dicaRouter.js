@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dicasController = require('../controllers/dicasController');
+const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
@@ -157,10 +158,11 @@ const dicasController = require('../controllers/dicasController');
  */
 
 
-router.post('/', dicasController.createDica);
-router.get('/', dicasController.getAllDica);
-router.get('/:idDica', dicasController.getDicaById);
-router.delete('/:idDica', dicasController.deleteDica);
+router.post('/',authenticateToken.validateToken, dicasController.createDica);
+router.get('/',authenticateToken.validateToken, dicasController.getAllDica);
+router.get('/:idDica',authenticateToken.validateToken, dicasController.getDicaById);
+router.put('/:id',authenticateToken.validateToken, dicasController.updateDica);
+router.delete('/:idDica',authenticateToken.validateToken, dicasController.deleteDica);
 
 
 module.exports = router;

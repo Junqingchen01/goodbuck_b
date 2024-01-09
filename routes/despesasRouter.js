@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const despesasController = require('../controllers/despesasController');
+const authenticateToken = require('../utilities/utilities');
 
 
 /**
@@ -146,11 +147,11 @@ const despesasController = require('../controllers/despesasController');
  *         description: Despesa deleted successfully
  */
 
-router.get('/:id', despesasController.GetUserDespesas);
-router.post('/:id', despesasController.createDespesa);
+router.get('/:id',authenticateToken.validateToken, despesasController.GetUserDespesas);
+router.post('/:id',authenticateToken.validateToken, despesasController.createDespesa);
 
-router.get('/:id/:idDespesa', despesasController.getDespesaById );
-router.delete('/:id/:idDespesa', despesasController.deleteDespesaById);
+router.get('/:id/:idDespesa',authenticateToken.validateToken, despesasController.getDespesaById );
+router.delete('/:id/:idDespesa',authenticateToken.validateToken, despesasController.deleteDespesaById);
 
 
 module.exports = router;

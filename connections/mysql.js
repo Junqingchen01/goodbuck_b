@@ -1,13 +1,11 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize.Sequelize(
-  "ippjunqingchen",
-  "root",
-  "womendeai0210",
-  {
-    host: "127.0.0.1",
-    dialect: "mysql",
-  }
-);
+const sequelize = new Sequelize({
+  database: 'joaoferr_ESMAPP_23_24_GRP3',
+  username: 'joaoferr_ESMAPP_23_24_GRP3',
+  password: 'tgvBq4pjvtSe',
+  host: 'www.joaoferreira.eu',
+  dialect: 'mysql', 
+});
 
 exports.sequelize = sequelize;

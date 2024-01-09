@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const perfilController = require('../controllers/perfilController');
+const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
@@ -79,6 +80,7 @@ const perfilController = require('../controllers/perfilController');
  *       '404':
  *         description: User not found
  */
+
 /**
  * @swagger
  * /perfil/{id}:
@@ -109,6 +111,7 @@ const perfilController = require('../controllers/perfilController');
  *         description: User updated successfully
  *       '404':
  *         description: User not found
+ */
 
 /**
  * @swagger
@@ -132,7 +135,7 @@ const perfilController = require('../controllers/perfilController');
 
 /**
  * @swagger
- * /perfil/{id}/Premiun:
+ * /perfil/{id}/Premium:  // Corrigi a função BuyPremiun para BuyPremium
  *   post:
  *     summary: Buy Premium for user
  *     description: Upgrade user to Premium
@@ -152,7 +155,7 @@ const perfilController = require('../controllers/perfilController');
 
 /**
  * @swagger
- * /perfil/{id}/Premiun:
+ * /perfil/{id}/Premium:  // Corrigi a função BuyPremiun para BuyPremium
  *   get:
  *     summary: Get Premium info for user
  *     description: Retrieve Premium information for a user
@@ -169,15 +172,16 @@ const perfilController = require('../controllers/perfilController');
  *       '404':
  *         description: User not found
  */
+
 router.post('/', perfilController.login);
-router.get('/', perfilController.getAllUsers);
-router.get('/:id', perfilController.getUserById);
-router.post('/register', perfilController.register);
+router.get('/',authenticateToken.validateToken, perfilController.getAllUsers);
+router.get('/:id',authenticateToken.validateToken, perfilController.getUserById);
+router.post('/register',authenticateToken.validateToken, perfilController.register);
 
-router.put('/:id', perfilController.updateUser);
-router.delete('/:id', perfilController.deleteUser);
+router.put('/:id',authenticateToken.validateToken, perfilController.updateUser);
+router.delete('/:id',authenticateToken.validateToken, perfilController.deleteUser);
 
-router.post('/:id/Premiun', perfilController.BuyPremiun);
-router.get('/:id/Premiun', perfilController.getInfoPremiun);
+router.post('/:id/Premium',authenticateToken.validateToken, perfilController.BuyPremium);  
+router.get('/:id/Premium',authenticateToken.validateToken, perfilController.getInfoPremium);  
 
 module.exports = router;

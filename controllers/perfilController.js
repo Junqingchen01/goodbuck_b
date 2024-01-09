@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
 
       if (isPasswordMatch) {
         const token = jwt.sign(
-          { UserID: user.UserID, Name: user.Name },
+          { UserID: user.UserID, Name: user.Name, UserType: user.UserType },
           "secret-key",
           { expiresIn: "1h" } 
         );
@@ -35,6 +35,7 @@ exports.login = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 // so para testar, neste funcao nao é de aplicacao
 exports.getAllUsers = async (req, res) => {
@@ -183,7 +184,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 // comprar premiun
-exports.BuyPremiun = async (req, res) => {
+exports.BuyPremium = async (req, res) => {
   try {
       const { Plan, Price, PaymentMethod, TransactionCode } = req.body;
       const UserID = req.params.id;
@@ -220,7 +221,7 @@ exports.BuyPremiun = async (req, res) => {
 };
 
 // ver informacao de premiun
-exports.getInfoPremiun = async (req, res) => {
+exports.getInfoPremium = async (req, res) => {
   try {
       const UserID = req.params.id;
 

@@ -11,7 +11,14 @@ User.init(
       autoIncrement: true,
     },
     Name: DataTypes.STRING,
-    Email: DataTypes.STRING,
+    Email: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true,
+      },
+    },
     Password: DataTypes.STRING,
     Avatar: DataTypes.STRING,
     CurrencyUnit: DataTypes.STRING,
@@ -21,6 +28,14 @@ User.init(
         isIn: [['Active', 'InActive']],
       },
     },
+    UserType: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['normal', 'admin']],
+      },
+      defaultValue: 'normal', 
+    },
+
   },
   { sequelize, modelName: "User" }
 );

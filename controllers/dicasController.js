@@ -61,6 +61,37 @@ exports.createDica = async (req, res) => {
         res.status(500).json({ message: 'Internal Server Error' });
     }
 };
+exports.updateDica = async (req, res) => {
+  try {
+    const { Title, Content, Type, Date, Author, Level, IsPremium } = req.body;
+    const dicaID = req.params.id;
+
+    const dica = await Dica.findOne({
+      where: { DicaID: dicaID },
+    });
+
+    if (!dica) {
+      return res.status(404).json({ message: "Dica not found" });
+    }
+
+    const updateFields = {};
+
+    if (Title !== undefined) updateFields.Title = Title;
+    if (Content !== undefined) updateFields.Content = Content;
+    if (Type !== undefined) updateFields.Type = Type;
+    if (Date !== undefined) updateFields.Date = Date;
+    if (Author !== undefined) updateFields.Author = Author;
+    if (Level !== undefined) updateFields.Level = Level;
+    if (IsPremium !== undefined) updateFields.IsPremium = IsPremium;
+
+    await Dica.update(updateFields, { where: { DicaID: dicaID } });
+
+    res.status(200).json({ message: "Dica updated successfully" });
+  } catch (error) {
+    console.error("Error updating Dica:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+};
 
 // delete Dica
 exports.deleteDica = async (req, res) => {

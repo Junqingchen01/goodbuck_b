@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const notificationsController = require('../controllers/notificationsController');
+const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
@@ -97,12 +98,12 @@ const notificationsController = require('../controllers/notificationsController'
  */
 
 
-router.get('/:id', notificationsController.getAllNotification);
-router.get('/:id/:idnotification', notificationsController.getNotificationById);
-router.post('/:id', notificationsController.createNotification);
+router.get('/:id',authenticateToken.validateToken, notificationsController.getAllNotification);
+router.get('/:id/:idnotification',authenticateToken.validateToken, notificationsController.getNotificationById);
+router.post('/:id',authenticateToken.validateToken, notificationsController.createNotification);
 
-router.delete('/:id/', notificationsController.deleteAllNotification);
-router.delete('/:id/:idnotification', notificationsController.deleteNotificationById);
+router.delete('/:id/',authenticateToken.validateToken, notificationsController.deleteAllNotification);
+router.delete('/:id/:idnotification',authenticateToken.validateToken, notificationsController.deleteNotificationById);
 
 
 module.exports = router;
