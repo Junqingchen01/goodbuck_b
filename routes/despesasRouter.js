@@ -146,7 +146,6 @@ const authenticateToken = require('../utilities/utilities');
  *       '204':
  *         description: Despesa deleted successfully
  */
-
 router.get('/',authenticateToken.validateToken, despesasController.GetUserDespesas);
 router.post('/',authenticateToken.validateToken, despesasController.createDespesa);
 

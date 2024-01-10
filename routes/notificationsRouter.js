@@ -30,13 +30,13 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /notifications/{id}:
+ * /notifications/{idnotification}:
  *   get:
  *     summary: Retrieve a notification by ID
  *     tags: [Notifications]
  *     parameters:
  *       - in: path
- *         name: id
+ *         name: idnotification
  *         required: true
  *         description: ID of the notification
  *         schema:
@@ -97,6 +97,31 @@ const authenticateToken = require('../utilities/utilities');
  *         description: Internal Server Error
  */
 
+/**
+ * @swagger
+ * /notifications/{idnotification}:
+ *   delete:
+ *     summary: Delete a notification by ID
+ *     tags: [Notifications]
+ *     parameters:
+ *       - in: path
+ *         name: idnotification
+ *         required: true
+ *         description: ID of the notification
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       '200':
+ *         description: Notification deleted successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Notification deleted successfully
+ *       '404':
+ *         description: Notification not found
+ *       '500':
+ *         description: Internal Server Error
+ */
 router.get('/:idnotification',authenticateToken.validateToken, notificationsController.getNotificationById);
 router.get('/',authenticateToken.validateToken, notificationsController.getAllNotification);
 

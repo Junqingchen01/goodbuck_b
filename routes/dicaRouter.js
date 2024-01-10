@@ -14,7 +14,7 @@ const authenticateToken = require('../utilities/utilities');
  * @swagger
  * /dicas:
  *   post:
- *     summary: create new  Dica
+ *     summary: Create new Dica
  *     tags: [Dicas]
  *     requestBody:
  *       required: true
@@ -64,11 +64,11 @@ const authenticateToken = require('../utilities/utilities');
  * @swagger
  * /dicas:
  *   get:
- *     summary: get all Dicas
+ *     summary: Get all Dicas
  *     tags: [Dicas]
  *     responses:
  *       200:
- *         description: get all  Dicas successfully
+ *         description: Get all Dicas successfully
  *         content:
  *           application/json:
  *             example:
@@ -96,7 +96,7 @@ const authenticateToken = require('../utilities/utilities');
  * @swagger
  * /dicas/{idDica}:
  *   get:
- *     summary: get Dica by ID
+ *     summary: Get Dica by ID
  *     tags: [Dicas]
  *     parameters:
  *       - in: path
@@ -104,7 +104,7 @@ const authenticateToken = require('../utilities/utilities');
  *         schema:
  *           type: integer
  *         required: true
- *         description: Dica 的 ID
+ *         description: Dica ID
  *     responses:
  *       200:
  *         description: Dica retrieved successfully
@@ -122,7 +122,7 @@ const authenticateToken = require('../utilities/utilities');
  *                 Level: Beginner
  *                 IsPremium: false
  *       404:
- *         description: Dica not  found
+ *         description: Dica not found
  *         content:
  *           application/json:
  *             example:
@@ -133,7 +133,7 @@ const authenticateToken = require('../utilities/utilities');
  * @swagger
  * /dicas/{idDica}:
  *   delete:
- *     summary: get Dica by ID and delete
+ *     summary: Delete Dica by ID
  *     tags: [Dicas]
  *     parameters:
  *       - in: path
@@ -141,7 +141,7 @@ const authenticateToken = require('../utilities/utilities');
  *         schema:
  *           type: integer
  *         required: true
- *         description: Dica 的 ID
+ *         description: Dica ID
  *     responses:
  *       200:
  *         description: Dica deleted successfully
@@ -150,7 +150,7 @@ const authenticateToken = require('../utilities/utilities');
  *             example:
  *               message: Dica deleted successfully
  *       404:
- *         description: Dica not  found
+ *         description: Dica not found
  *         content:
  *           application/json:
  *             example:

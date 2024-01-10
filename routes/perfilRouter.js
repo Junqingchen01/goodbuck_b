@@ -12,7 +12,7 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /perfil:
+ * /perfil/login:
  *   post:
  *     summary: User login
  *     description: Login with user credentials
@@ -63,7 +63,21 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /perfil/{id}:
+ * /perfil:
+ *   get:
+ *     summary: Get all users
+ *     description: Retrieve all users
+ *     tags: [Perfil]
+ *     responses:
+ *       '200':
+ *         description: Users retrieved successfully
+ *       '401':
+ *         description: Unauthorized
+ */
+
+/**
+ * @swagger
+ * /perfil/user:
  *   get:
  *     summary: Get user by ID
  *     description: Retrieve a user by their ID
@@ -83,17 +97,11 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /perfil/{id}:
+ * /perfil:
  *   put:
  *     summary: Update user by ID
  *     description: Update user details by their ID
  *     tags: [Perfil]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
  *     requestBody:
  *       required: true
  *       content:
@@ -135,17 +143,11 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /perfil/{id}/Premium:  // Corrigi a função BuyPremiun para BuyPremium
+ * /perfil/Premium:
  *   post:
  *     summary: Buy Premium for user
  *     description: Upgrade user to Premium
  *     tags: [Perfil]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
  *     responses:
  *       '200':
  *         description: Premium bought successfully
@@ -155,17 +157,11 @@ const authenticateToken = require('../utilities/utilities');
 
 /**
  * @swagger
- * /perfil/{id}/Premium:  // Corrigi a função BuyPremiun para BuyPremium
+ * /perfil/Premium:
  *   get:
  *     summary: Get Premium info for user
  *     description: Retrieve Premium information for a user
  *     tags: [Perfil]
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: string
  *     responses:
  *       '200':
  *         description: Premium info retrieved successfully

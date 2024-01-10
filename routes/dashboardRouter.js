@@ -84,9 +84,7 @@ const authenticateToken = require('../utilities/utilities');
  *               amountByMonth:
  *                 January: 150.00
  *                 February: 200.00
- 
  */
-
 router.get('/allamount',authenticateToken.validateToken, dashboardController.AllAmount);
 router.get('/amount',authenticateToken.validateToken, dashboardController.AllAmountByCategory);
 router.get('/amountbymouth',authenticateToken.validateToken, dashboardController.AllAmountByMonth);
