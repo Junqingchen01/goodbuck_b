@@ -5,7 +5,7 @@ const { User } = require('../models/user');
 exports.createNotification = async (req, res) => {
   try {
       const { Title, Content } = req.body;
-      const UserID = req.params.id;
+      const UserID = req.userID;
 
       const user = await User.findByPk(UserID);
       if (!user) {
@@ -30,7 +30,7 @@ exports.createNotification = async (req, res) => {
 // get all notifications
 exports.getAllNotification = async (req, res) => {
   try {
-      const UserID = req.params.id;
+    const UserID = req.userID;
       const user = await User.findByPk(UserID);
 
       if (!user) {
@@ -52,7 +52,8 @@ exports.getAllNotification = async (req, res) => {
 // get notification by id
 exports.getNotificationById = async (req, res) => {
     try {
-      const notificationID = req.params.id;
+      const notificationID = req.params.idnotification;
+      
       const notification = await Notification.findByPk(notificationID);
   
       if (!notification) {
@@ -70,7 +71,7 @@ exports.getNotificationById = async (req, res) => {
 // delete notifications
 exports.deleteAllNotification = async (req, res) => {
   try {
-      const UserID = req.params.id;
+    const UserID = req.userID;
 
       const user = await User.findByPk(UserID);
       if (!user) {
@@ -92,7 +93,7 @@ exports.deleteAllNotification = async (req, res) => {
 // delete notification by id
 exports.deleteNotificationById = async (req, res) => {
   try {
-      const UserID = req.params.id;
+    const UserID = req.userID;
       const notificationID = req.params.idnotification;
 
       const user = await User.findByPk(UserID);

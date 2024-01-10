@@ -58,19 +58,20 @@ exports.getAllUsers = async (req, res) => {
 // get informacao de utilizador
 exports.getUserById = async (req, res) => {
   try {
-      const userID = req.params.id;
+    const UserID = req.userID;
 
       const user = await User.findOne({
-          where: { UserID: userID },
+          where: { UserID: UserID },
       });
 
       if (!user) {
+        
           return res.status(404).json({ message: "User not found" });
       }
 
       const premium = await Premium.findOne({
           where: {
-              UserID: userID,
+              UserID: UserID,
               EndDate: { [Sequelize.Op.gte]: new Date() }, 
           },
       });
@@ -82,12 +83,12 @@ exports.getUserById = async (req, res) => {
 
           await User.update(
               { AccountType: accountType },
-              { where: { UserID: userID } }
+              { where: { UserID: UserID } }
           );
       }
 
       const updatedUser = await User.findOne({
-          where: { UserID: userID },
+          where: { UserID: UserID },
       });
 
       res.status(200).json({ message: "User retrieved successfully", user: updatedUser });
@@ -130,13 +131,14 @@ exports.updateUser = async (req, res) => {
   try {
       const { Name, Email, Password, Avatar, CurrencyUnit } = req.body;
 
-      const userID = req.params.id;
+      const UserID = req.userID;
 
       const user = await User.findOne({
-          where: { UserID: userID },
+          where: { UserID: UserID },
       });
 
       if (!user) {
+        
           return res.status(404).json({ message: "User not found" });
       }
 
@@ -151,7 +153,7 @@ exports.updateUser = async (req, res) => {
       if (Avatar !== undefined) updateFields.Avatar = Avatar;
       if (CurrencyUnit !== undefined) updateFields.CurrencyUnit = CurrencyUnit;
 
-      await User.update(updateFields, { where: { UserID: userID } });
+      await User.update(updateFields, { where: { UserID: UserID } });
 
       res.status(200).json({ message: "User updated successfully" });
   } catch (error) {
@@ -169,6 +171,7 @@ exports.deleteUser = async (req, res) => {
       });
 
       if (!user) {
+        
           return res.status(404).json({ message: "User not found" });
       }
 
@@ -187,18 +190,20 @@ exports.deleteUser = async (req, res) => {
 exports.BuyPremium = async (req, res) => {
   try {
       const { Plan, Price, PaymentMethod, TransactionCode } = req.body;
-      const UserID = req.params.id;
+      const UserID = req.userID; 
 
       const user = await User.findOne({
           where: { UserID },
       });
 
       if (!user) {
+        
           return res.status(404).json({ message: "User not found" });
+          
       }
-      // data comeca vai ser agora e data fim vai ser daqui a um mes
-      const StartDate = new Date();
 
+      // Data começa agora e a data de término será daqui a um mês
+      const StartDate = new Date();
       const EndDate = new Date();
       EndDate.setMonth(EndDate.getMonth() + 1);
 
@@ -223,7 +228,9 @@ exports.BuyPremium = async (req, res) => {
 // ver informacao de premiun
 exports.getInfoPremium = async (req, res) => {
   try {
-      const UserID = req.params.id;
+   
+    const UserID = req.userID; 
+    console.log(UserID)
 
       const premium = await Premium.findOne({
           where: { UserID },

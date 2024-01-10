@@ -97,13 +97,13 @@ const authenticateToken = require('../utilities/utilities');
  *         description: Internal Server Error
  */
 
+router.get('/:idnotification',authenticateToken.validateToken, notificationsController.getNotificationById);
+router.get('/',authenticateToken.validateToken, notificationsController.getAllNotification);
 
-router.get('/:id',authenticateToken.validateToken, notificationsController.getAllNotification);
-router.get('/:id/:idnotification',authenticateToken.validateToken, notificationsController.getNotificationById);
-router.post('/:id',authenticateToken.validateToken, notificationsController.createNotification);
+router.post('/',authenticateToken.validateToken, notificationsController.createNotification);
 
-router.delete('/:id/',authenticateToken.validateToken, notificationsController.deleteAllNotification);
-router.delete('/:id/:idnotification',authenticateToken.validateToken, notificationsController.deleteNotificationById);
+router.delete('/',authenticateToken.validateToken, notificationsController.deleteAllNotification);
+router.delete('/:idnotification',authenticateToken.validateToken, notificationsController.deleteNotificationById);
 
 
 module.exports = router;

@@ -4,14 +4,14 @@ const metasController = require('../controllers/metasController');
 const authenticateToken = require('../utilities/utilities');
 
 
-router.get('/:id',authenticateToken.validateToken, metasController.getAllMetas);
-router.get('/:id/:Metaid',authenticateToken.validateToken, metasController.getMetaByID);
+router.get('/',authenticateToken.validateToken, metasController.getAllMetas);
+router.get('/:Metaid',authenticateToken.validateToken, metasController.getMetaByID);
 
-router.post('/:id',authenticateToken.validateToken, metasController.createMeta);
+router.post('/',authenticateToken.validateToken, metasController.createMeta);
 
-router.put('/:id/:Metaid',authenticateToken.validateToken, metasController.updateMeta);
+router.put('/:Metaid',authenticateToken.validateToken, metasController.updateMeta);
 
-router.delete('/:id/:Metaid',authenticateToken.validateToken, metasController.deleteMeta);
+router.delete('/:Metaid',authenticateToken.validateToken, metasController.deleteMeta);
 
 
 

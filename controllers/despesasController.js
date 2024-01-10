@@ -6,10 +6,10 @@ const { Sequelize } = require('sequelize');
 //get all despesas
 exports.GetUserDespesas = async (req, res) => {
     try {
-        const userID = req.params.id;
+        const UserID = req.userID;
 
         const userWithDespesas = await User.findOne({
-            where: { UserID: userID },
+            where: { UserID: UserID },
             attributes: ['UserID', 'Name'], 
             include: {
                 model: Despesa,
@@ -34,11 +34,11 @@ exports.GetUserDespesas = async (req, res) => {
 //create despesa
 exports.createDespesa = async (req, res) => {
     try {
-        const userID = req.params.id; 
+        const UserID = req.userID; 
         const { Category, Description, PaymentMethod, Amount } = req.body;
 
         const user = await User.findOne({
-            where: { UserID: userID },
+            where: { UserID: UserID },
         });
 
         if (!user) {
@@ -48,7 +48,7 @@ exports.createDespesa = async (req, res) => {
 
 
         const newDespesa = await Despesa.create({
-            UserID: userID,
+            UserID: UserID,
             Date: newDate,
             Category,
             Description,
@@ -69,15 +69,15 @@ exports.createDespesa = async (req, res) => {
 //get despesa by id
 exports.getDespesaById = async (req, res) => {
     try {
-        const userID = req.params.id;  
+        const UserID = req.userID;  
         const despesaID = req.params.idDespesa;  
 
-        if (!userID || !despesaID) {
+        if (!UserID || !despesaID) {
             return res.status(400).json({ message: "User ID and Despesa ID are required" });
         }
 
         const despesa = await Despesa.findOne({
-            where: { UserID: userID, DespesaID: despesaID },
+            where: { UserID: UserID, DespesaID: despesaID },
         });
 
         if (!despesa) {
@@ -97,15 +97,15 @@ exports.getDespesaById = async (req, res) => {
 //delete despesa by id
 exports.deleteDespesaById = async (req, res) => {
     try {
-        const userID = req.params.id;  
+        const UserID = req.userID; 
         const despesaID = req.params.idDespesa;  
 
-        if (!userID || !despesaID) {
+        if (!UserID || !despesaID) {
             return res.status(400).json({ message: "User ID and Despesa ID are required" });
         }
 
         const despesa = await Despesa.findOne({
-            where: { UserID: userID, DespesaID: despesaID },
+            where: { UserID: UserID, DespesaID: despesaID },
         });
 
         if (!despesa) {

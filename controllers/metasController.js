@@ -1,18 +1,18 @@
 const { Meta_de_poupança} = require('../models/meta');
 const { User } = require('../models/user');
 
-// 获取用户所有目标
+
 exports.getAllMetas = async (req, res) => {
-    const { id } = req.params;
+    const UserID = req.userID;
     try {
-        const user = await User.findOne({ where: { UserID: id } });
+        const user = await User.findOne({ where: { UserID: UserID } });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         const metas = await Meta_de_poupança.findAll({
-            where: { UserID: id },
+            where: { UserID: UserID },
             order: [
                 ['Priority', 'ASC'],
                 ['EndDate', 'ASC'],
@@ -26,10 +26,11 @@ exports.getAllMetas = async (req, res) => {
 }
 
 exports.getMetaByID = async (req, res) => {
-    const { id, Metaid } = req.params;
+    const UserID = req.userID;
+    const Metaid  = req.params.Metaid;
     try {
         const meta = await Meta_de_poupança.findOne({
-            where: { MetaID: Metaid, UserID: id }
+            where: { MetaID: Metaid, UserID: UserID }
         });
 
         if (!meta) {
@@ -42,20 +43,20 @@ exports.getMetaByID = async (req, res) => {
     }
 }
 
-// 创建目标
+
 exports.createMeta = async (req, res) => {
-    const { id } = req.params;
+    const UserID = req.userID;
     const { Name, StartDate, EndDate, PlannedContribution, CurrentContribution, Description, Priority } = req.body;
 
     try {
-        const user = await User.findOne({ where: { UserID: id } });
+        const user = await User.findOne({ where: { UserID: UserID } });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         const meta = await Meta_de_poupança.create({
-            UserID: id,
+            UserID: UserID,
             Name,
             StartDate,
             EndDate,
@@ -72,18 +73,19 @@ exports.createMeta = async (req, res) => {
 }
 
 exports.updateMeta = async (req, res) => {
-    const { id, Metaid } = req.params;
+    const UserID = req.userID;
+    const   Metaid  = req.params.Metaid;
     const { Name, StartDate, EndDate, PlannedContribution, CurrentContribution, Description, Priority } = req.body;
 
     try {
-        const user = await User.findOne({ where: { UserID: id } });
+        const user = await User.findOne({ where: { UserID: UserID } });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         const meta = await Meta_de_poupança.findOne({
-            where: { MetaID: Metaid, UserID: id }
+            where: { MetaID: Metaid, UserID: UserID }
         });
 
         if (!meta) {
@@ -106,18 +108,19 @@ exports.updateMeta = async (req, res) => {
     }
 }
 
-// 删除目标
+
 exports.deleteMeta = async (req, res) => {
-    const { id, Metaid } = req.params;
+    const UserID = req.userID;
+    const Metaid  = req.params.Metaid;
     try {
-        const user = await User.findOne({ where: { UserID: id } });
+        const user = await User.findOne({ where: { UserID: UserID } });
 
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
 
         const meta = await Meta_de_poupança.findOne({
-            where: { MetaID: Metaid, UserID: id }
+            where: { MetaID: Metaid, UserID: UserID }
         });
 
         if (!meta) {

@@ -147,11 +147,11 @@ const authenticateToken = require('../utilities/utilities');
  *         description: Despesa deleted successfully
  */
 
-router.get('/:id',authenticateToken.validateToken, despesasController.GetUserDespesas);
-router.post('/:id',authenticateToken.validateToken, despesasController.createDespesa);
+router.get('/',authenticateToken.validateToken, despesasController.GetUserDespesas);
+router.post('/',authenticateToken.validateToken, despesasController.createDespesa);
 
-router.get('/:id/:idDespesa',authenticateToken.validateToken, despesasController.getDespesaById );
-router.delete('/:id/:idDespesa',authenticateToken.validateToken, despesasController.deleteDespesaById);
+router.get('/:idDespesa',authenticateToken.validateToken, despesasController.getDespesaById );
+router.delete('/:idDespesa',authenticateToken.validateToken, despesasController.deleteDespesaById);
 
 
 module.exports = router;

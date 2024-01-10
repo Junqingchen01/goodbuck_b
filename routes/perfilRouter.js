@@ -173,15 +173,15 @@ const authenticateToken = require('../utilities/utilities');
  *         description: User not found
  */
 
-router.post('/', perfilController.login);
+router.post('/login', perfilController.login);
 router.get('/',authenticateToken.validateToken, perfilController.getAllUsers);
-router.get('/:id',authenticateToken.validateToken, perfilController.getUserById);
+router.get('/user',authenticateToken.validateToken, perfilController.getUserById);
 router.post('/register',authenticateToken.validateToken, perfilController.register);
 
-router.put('/:id',authenticateToken.validateToken, perfilController.updateUser);
+router.put('/',authenticateToken.validateToken, perfilController.updateUser);
 router.delete('/:id',authenticateToken.validateToken, perfilController.deleteUser);
 
-router.post('/:id/Premium',authenticateToken.validateToken, perfilController.BuyPremium);  
-router.get('/:id/Premium',authenticateToken.validateToken, perfilController.getInfoPremium);  
+router.post('/Premium',authenticateToken.validateToken, perfilController.BuyPremium);  
+router.get('/Premium',authenticateToken.validateToken, perfilController.getInfoPremium);  
 
 module.exports = router;

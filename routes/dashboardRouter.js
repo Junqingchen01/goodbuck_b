@@ -87,8 +87,8 @@ const authenticateToken = require('../utilities/utilities');
  
  */
 
-router.get('/:id/allamount', dashboardController.AllAmount);
-router.get('/:id/amount', dashboardController.AllAmountByCategory);
-router.get('/:id/amountbymouth', dashboardController.AllAmountByMonth);
+router.get('/allamount',authenticateToken.validateToken, dashboardController.AllAmount);
+router.get('/amount',authenticateToken.validateToken, dashboardController.AllAmountByCategory);
+router.get('/amountbymouth',authenticateToken.validateToken, dashboardController.AllAmountByMonth);
 
 module.exports = router;
