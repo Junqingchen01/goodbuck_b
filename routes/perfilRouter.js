@@ -170,9 +170,9 @@ const authenticateToken = require('../utilities/utilities');
  */
 
 router.post('/login', perfilController.login);
-router.get('/',authenticateToken.validateToken, perfilController.getAllUsers);
+router.get('/',perfilController.getAllUsers);
 router.get('/user',authenticateToken.validateToken, perfilController.getUserById);
-router.post('/register',authenticateToken.validateToken, perfilController.register);
+router.post('/register', perfilController.register);
 
 router.put('/',authenticateToken.validateToken, perfilController.updateUser);
 router.delete('/:id',authenticateToken.validateToken, perfilController.deleteUser);

@@ -75,7 +75,7 @@ exports.createMeta = async (req, res) => {
 exports.updateMeta = async (req, res) => {
     const UserID = req.userID;
     const   Metaid  = req.params.Metaid;
-    const { Name, StartDate, EndDate, PlannedContribution, CurrentContribution, Description, Priority } = req.body;
+    const {  PlannedContribution, CurrentContribution, Description, Priority } = req.body;
 
     try {
         const user = await User.findOne({ where: { UserID: UserID } });
@@ -93,9 +93,6 @@ exports.updateMeta = async (req, res) => {
         }
 
         await meta.update({
-            Name,
-            StartDate,
-            EndDate,
             PlannedContribution,
             CurrentContribution,
             Description,

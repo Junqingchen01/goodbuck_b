@@ -159,8 +159,11 @@ const authenticateToken = require('../utilities/utilities');
 
 
 router.post('/',authenticateToken.validateToken, dicasController.createDica);
+
 router.get('/',authenticateToken.validateToken, dicasController.getAllDica);
+
 router.get('/:idDica',authenticateToken.validateToken, dicasController.getDicaById);
+
 router.put('/:id',authenticateToken.validateToken, dicasController.updateDica);
 router.delete('/:idDica',authenticateToken.validateToken, dicasController.deleteDica);
 
